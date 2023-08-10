@@ -29,6 +29,7 @@
  */
 
 // 第一版本
+// 用时 500+ms 内存消耗 43.3MB
 const pivotIndex = (nums) => {
     const sum = nums.reduce((total, item) => total + item, 0);
     const fixSum = (i) => nums.reduce((total, item, index) => {
@@ -47,6 +48,49 @@ const pivotIndex = (nums) => {
                 break hdd;
             }
         }
+    }
+    return index;
+};
+
+// 第二版
+// 优化：数组求和
+// 用时 230+ms 内存消耗 43MB
+const pivotIndex_2 = (nums) => {
+    let sum = 0;
+    for (let i = 0; i < nums.length; i++) {
+        sum += nums[i];
+    }
+    let index = -1;
+    hdd:for (let i = 0; i < nums.length; i++) {
+        const average = (sum - nums[i]) / 2;
+        let start = 0;
+        for (let e = 0; e < i; e++) {
+            start += nums[e];
+        }
+        if (start === average) {
+            index = i;
+            break hdd;
+        }
+    }
+    return index;
+};
+
+// 第三版
+// 优化：左求和 * 2 + nums[i] = sum
+// 用时 60+ms 内存消耗 43.3MB
+const pivotIndex_3 = (nums) => {
+    let sum = 0;
+    for (let i = 0; i < nums.length; i++) {
+        sum += nums[i];
+    }
+    let index = -1;
+    let leftSum = 0;
+    hdd:for (let i = 0; i < nums.length; i++) {
+        if (2 * leftSum + nums[i] === sum) {
+            index = i;
+            break hdd;
+        }
+        leftSum += nums[i]
     }
     return index;
 };
