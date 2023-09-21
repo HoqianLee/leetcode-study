@@ -40,7 +40,7 @@ const fibonacci_memorized = (n) => {
 console.log(fibonacci_memorized(41));
 console.log(Date.now());
 
-// 动态规划
+// 记忆化递归2
 console.log(Date.now());
 const fibonacci2 = (n) => {
   if (n === 0) {
@@ -59,4 +59,26 @@ const fibonacci2 = (n) => {
   return db[n];
 };
 console.log(fibonacci_memorized(41));
+console.log(Date.now());
+
+// 动态规划
+console.log(Date.now());
+const fibonacci3 = (n) => {
+  if (n === 0) {
+    return 0;
+  }
+  if (n === 1 || n === 2) {
+    return 1;
+  }
+
+  let prev = 1;
+  let curr = 1;
+  for (let i = 3; i <= n; i++) {
+    const sum = prev + curr;
+    prev = curr;
+    curr = sum;
+  }
+  return curr;
+};
+console.log(fibonacci3(41));
 console.log(Date.now());
